@@ -1,0 +1,460 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<JCSDataFile xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" >
+<JCSGMLInputTemplate>
+<CollectionElement>featureCollection</CollectionElement> 
+<FeatureElement>feature</FeatureElement>
+<GeometryElement>geometry</GeometryElement>
+<ColumnDefinitions>
+     <column>
+          <name>CREATED</name>
+          <type>DATE</type>
+          <valueElement elementName="property" attributeName="name" attributeValue="CREATED"/>
+          <valueLocation position="body"/>
+     </column>
+     <column>
+          <name>MODIFIED</name>
+          <type>DATE</type>
+          <valueElement elementName="property" attributeName="name" attributeValue="MODIFIED"/>
+          <valueLocation position="body"/>
+     </column>
+     <column>
+          <name>TEXT</name>
+          <type>STRING</type>
+          <valueElement elementName="property" attributeName="name" attributeValue="TEXT"/>
+          <valueLocation position="body"/>
+     </column>
+</ColumnDefinitions>
+</JCSGMLInputTemplate>
+
+<featureCollection>
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">MOSI</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10574.317002156235,13035.023137281762 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Central Library</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10892.697317756412,13232.576947809255 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Town Hall</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11291.36874474434,13248.889459475058 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Cube</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11432.128822249473,13009.720269712041 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Hulme Asda</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11019.43306548426,11284.273388257869 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Marble Arch</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12045.20485339787,14291.721714800504 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Soup Kitchen</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11882.96113031324,13696.1380848989 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">North Tea Power</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11793.197256428191,13742.326843023366 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Common</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11808.935203969155,13897.458669828908 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Nexus</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11849.278143678224,13626.712018211249 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Port Street</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12144.742048588003,13668.694443689918 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Islington Mill</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>9738.338,13576.011 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Kings Arms</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10441.198548870903,13888.961648396984 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Star And Garter</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12343.053359123323,12937.255119230042 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Britons Protection</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10948.776872570577,12915.896609974674 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Deaf Institute</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11819.267436178146,12324.376316009884 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Cornerhouse</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11476.399163941302,12815.507110990213 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Academy</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12126.651344395657,11611.452293589438 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Zion Arts Centre</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10711.135531763764,11895.588679336717 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Frog and Bucket</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12043.584586093028,13901.952461866318 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">RX Theatre</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11261.88450711912,13699.43650670147 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Arndale</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11411.144263922966,13781.221057477744 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">The Castle</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11938.248151338259,13840.179195966159 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Roadhouse</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11940.329748381246,13531.82112058976 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Band on the wall</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11929.390506833022,13959.190460920712 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Art Gallery</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12318.107632088919,11216.232746263799 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Printworks</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11409.183902935378,13992.223630248982 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Contact</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12153.226260071733,11459.631227307818 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Sound Control</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11422.30967485887,12677.043859421608 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Ruby Lounge</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11576.585185507998,13730.18621571266 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Manchester Cathedral</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11209.567882300737,13959.694903057592 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-07</property>
+          <property name="MODIFIED">2011-08-07</property>
+          <property name="TEXT">Didsbury Park</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12338.978350601168,6131.998168558829 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Withington</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>12338.482975014853,8346.125695963008 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Marie Louise Gardens</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>11284.890759958564,6527.658084697927 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT"></property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10562.587612908404,8511.77955278296 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Southern Cemetry</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10102.60627077434,7786.497768505179 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Chorlton Park</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>9522.380843352115,8414.439102787785 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Manley Park</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>9620.568241025527,9957.111632552333 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     <feature> 
+          <property name="CREATED">2011-08-08</property>
+          <property name="MODIFIED">2011-08-08</property>
+          <property name="TEXT">Alexandra Park</property>
+          <geometry>
+                <gml:Point>
+                  <gml:coordinates>10894.609114277158,10277.215485433753 </gml:coordinates>
+                </gml:Point>
+          </geometry>
+     </feature>
+
+     </featureCollection>
+</JCSDataFile>

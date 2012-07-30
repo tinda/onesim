@@ -1,0 +1,389 @@
+
+## Manchester Simulation file for the One Simulator
+# By Matthew Orlinski - 2011
+# GPLv3 license 
+
+
+Scenario.name = Manchester_scenario
+Scenario.simulateConnections = true
+Scenario.updateInterval = 1
+# 43k ~= 12h
+# 2408k ~= 28 days, 4 weeks
+# 2408k ~= 7 days
+Scenario.endTime = 604800
+
+Report.warmup = 1
+Group.msgTtl = 60
+
+
+
+Report.reportDir = [reports/Manchester/1; reports/Manchester/2; reports/Manchester/3; reports/Manchester/4; reports/Manchester/5]
+
+###################################
+### common settings for all groups
+Group.movementModel = MapBasedMovement
+Group.router = EpidemicRouter
+
+
+# "Bluetooth" interface for all nodes
+btInterface.type = SimpleBroadcastInterface
+# Transmit speed of 2 Mbps = 250kBps
+btInterface.transmitSpeed = 250k
+btInterface.transmitRange = 10
+btInterface.scanInterval = 120
+
+Group.bufferSize = 5M
+Group.waitTime = 0, 120
+# transmit speed of 2 Mbps = 250kBps
+# walking speeds
+Group.speed = 0.5, 1.5
+Group.transmitSpeed = 250k
+Group.transmitRange = 10
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+
+
+Group.workDayLength = 43200
+Group.probGoShoppingAfterWork = 0.5
+
+
+Group.officeWaitTimeParetoCoeff = 0.5
+Group.officeMinWaitTime = 10
+Group.officeMaxWaitTime = 100000
+Group.officeSize = 100
+
+Group.nrofHosts = 0
+
+Group.timeDiffSTD = 7200
+Group.minGroupSize = 1
+Group.maxGroupSize = 7
+Group.minAfterShoppingStopTime = 3600
+Group.maxAfterShoppingStopTime = 7200
+
+
+
+
+
+
+Group.nrOfOffices = 2
+Group.nrOfMeetingSpots = 5
+Scenario.nrofHostGroups = 20
+
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 20000, 20000
+# How long time to move hosts in the world before real simulation
+MovementModel.warmup = 43000
+
+## Map based movement -movement model specific settings
+MapBasedMovement.nrofMapFiles = 1
+MapBasedMovement.performChecks = true
+MapBasedMovement.mapFile1 = data/mapcha.wkt
+
+
+####################################################
+# People movement
+
+
+Group1.groupID = A
+Group1.waitTime = 10, 30 
+Group1.speed = 0.8, 1.4
+Group1.nrofHosts = 500
+Group1.movementModel = WorkingDayMovement
+Group1.busControlSystemNr = 1
+Group1.ownCarProb = 0.5
+Group1.shoppingControlSystemNr = 1
+Group1.meetingSpotsFile = data/Manchester/142_meetingpoints.wkt
+Group1.officeLocationsFile = data/Manchester/142_offices.wkt
+Group1.homeLocationsFile = data/Manchester/142_homes.wkt
+
+Group2.groupID = B
+Group2.waitTime = 10, 30 
+Group2.speed = 0.8, 1.4
+Group2.nrofHosts = 500
+Group2.movementModel = WorkingDayMovement
+Group2.busControlSystemNr = 1
+Group2.ownCarProb = 0.5
+Group2.shoppingControlSystemNr = 1
+Group2.meetingSpotsFile = data/Manchester/143_meetingpoints.wkt
+Group2.officeLocationsFile = data/Manchester/143_offices.wkt
+Group2.homeLocationsFile = data/Manchester/143_homes.wkt
+
+Group5.groupID = C
+Group5.waitTime = 10, 30 
+Group5.speed = 0.8, 1.4
+Group5.nrofHosts = 500
+Group5.movementModel = WorkingDayMovement
+Group5.busControlSystemNr = 1
+Group5.ownCarProb = 0.5
+Group5.shoppingControlSystemNr = 1
+Group5.meetingSpotsFile = data/Manchester/86_meetingpoints.wkt
+Group5.officeLocationsFile = data/Manchester/86_offices.wkt
+Group5.homeLocationsFile = data/Manchester/86_homes.wkt
+
+Group7.groupID = D
+Group7.waitTime = 10, 30 
+Group7.speed = 0.8, 1.4
+Group7.nrofHosts = 500
+Group7.movementModel = WorkingDayMovement
+Group7.busControlSystemNr = 1
+Group7.ownCarProb = 0.5
+Group7.shoppingControlSystemNr = 1
+Group7.meetingSpotsFile = data/Manchester/85_meetingpoints.wkt
+Group7.officeLocationsFile = data/Manchester/85_offices.wkt
+Group7.homeLocationsFile = data/Manchester/85_homes.wkt
+
+Group9.groupID = E
+Group9.waitTime = 10, 30 
+Group9.speed = 0.8, 1.4
+Group9.nrofHosts = 500
+Group9.movementModel = WorkingDayMovement
+Group9.busControlSystemNr = 1
+Group9.ownCarProb = 0.5
+Group9.shoppingControlSystemNr = 1
+Group9.meetingSpotsFile = data/Manchester/84_meetingpoints.wkt
+Group9.officeLocationsFile = data/Manchester/84_offices.wkt
+Group9.homeLocationsFile = data/Manchester/84_homes.wkt
+
+
+Group11.groupID = F
+Group11.waitTime = 10, 30 
+Group11.speed = 0.8, 1.4
+Group11.nrofHosts = 500
+Group11.movementModel = WorkingDayMovement
+Group11.busControlSystemNr = 1
+Group11.ownCarProb = 0.5
+Group11.shoppingControlSystemNr = 1
+Group11.meetingSpotsFile = data/Manchester/192_meetingpoints.wkt
+Group11.officeLocationsFile = data/Manchester/192_offices.wkt
+Group11.homeLocationsFile = data/Manchester/192_homes.wkt
+
+
+Group13.groupID = G
+Group13.waitTime = 10, 30 
+Group13.speed = 0.8, 1.4
+Group13.nrofHosts = 500
+Group13.movementModel = WorkingDayMovement
+Group13.busControlSystemNr = 1
+Group13.ownCarProb = 0.5
+Group13.shoppingControlSystemNr = 1
+Group13.meetingSpotsFile = data/Manchester/101_meetingpoints.wkt
+Group13.officeLocationsFile = data/Manchester/101_offices.wkt
+Group13.homeLocationsFile = data/Manchester/101_homes.wkt
+
+
+Group15.groupID = H
+Group15.waitTime = 10, 30 
+Group15.speed = 0.8, 1.4
+Group15.nrofHosts = 500
+Group15.movementModel = WorkingDayMovement
+Group15.busControlSystemNr = 1
+Group15.ownCarProb = 0.5
+Group15.shoppingControlSystemNr = 1
+Group15.meetingSpotsFile = data/Manchester/50_meetingpoints.wkt
+Group15.officeLocationsFile = data/Manchester/50_offices.wkt
+Group15.homeLocationsFile = data/Manchester/50_homes.wkt
+
+Group17.groupID = I
+Group17.waitTime = 10, 30 
+Group17.speed = 0.8, 1.4
+Group17.nrofHosts = 500
+Group17.movementModel = WorkingDayMovement
+Group17.busControlSystemNr = 1
+Group17.ownCarProb = 0.5
+Group17.shoppingControlSystemNr = 1
+Group17.meetingSpotsFile = data/Manchester/168_meetingpoints.wkt
+Group17.officeLocationsFile = data/Manchester/168_offices.wkt
+Group17.homeLocationsFile = data/Manchester/168_homes.wkt
+
+Group19.groupID = J
+Group19.waitTime = 10, 30 
+Group19.speed = 0.8, 1.4
+Group19.nrofHosts = 500
+Group19.movementModel = WorkingDayMovement
+Group19.busControlSystemNr = 1
+Group19.ownCarProb = 0.5
+Group19.shoppingControlSystemNr = 1
+Group19.meetingSpotsFile = data/Manchester/Salford_meetingpoints.wkt
+Group19.officeLocationsFile = data/Manchester/Salford_offices.wkt
+Group19.homeLocationsFile = data/Manchester/Salford_homes.wkt
+
+
+##################################################
+## BUS GROUPS
+
+Group3.groupID = o
+Group3.speed = 7, 10
+Group3.waitTime = 10, 30
+Group3.nrofHosts = 20
+Group3.nrofInterfaces = 0
+Group3.movementModel = BusMovement
+Group3.routeFile = data/Manchester/Bus_142.wkt
+Group3.routeType = 2
+Group3.busControlSystemNr = 1
+
+Group4.groupID = p
+Group4.speed = 7, 10
+Group4.waitTime = 10, 30
+Group4.nrofHosts = 20
+Group4.nrofInterfaces = 0
+Group4.movementModel = BusMovement
+Group4.routeFile = data/Manchester/Bus_143.wkt
+Group4.routeType = 2
+Group4.busControlSystemNr = 1
+
+Group6.groupID = q
+Group6.speed = 7, 10
+Group6.waitTime = 10, 30
+Group6.nrofHosts = 10
+Group6.nrofInterfaces = 0
+Group6.movementModel = BusMovement
+Group6.routeFile = data/Manchester/Bus_86.wkt
+Group6.routeType = 2
+Group6.busControlSystemNr = 1
+
+Group8.groupID = r
+Group8.speed = 7, 10
+Group8.waitTime = 10, 30
+Group8.nrofHosts = 10
+Group8.nrofInterfaces = 0
+Group8.movementModel = BusMovement
+Group8.routeFile = data/Manchester/Bus_85.wkt
+Group8.routeType = 2
+Group8.busControlSystemNr = 1
+
+Group10.groupID = s
+Group10.speed = 7, 10
+Group10.waitTime = 10, 30
+Group10.nrofHosts = 10
+Group10.nrofInterfaces = 0
+Group10.movementModel = BusMovement
+Group10.routeFile = data/Manchester/Bus_84.wkt
+Group10.routeType = 2
+Group10.busControlSystemNr = 1
+
+Group12.groupID = t
+Group12.speed = 7, 10
+Group12.waitTime = 10, 30
+Group12.nrofHosts = 10
+Group12.nrofInterfaces = 0
+Group12.movementModel = BusMovement
+Group12.routeFile = data/Manchester/Bus_192.wkt
+Group12.routeType = 2
+Group12.busControlSystemNr = 1
+
+Group14.groupID = u
+Group14.speed = 7, 10
+Group14.waitTime = 10, 30
+Group14.nrofHosts = 10
+Group14.nrofInterfaces = 0
+Group14.movementModel = BusMovement
+Group14.routeFile = data/Manchester/Bus_101.wkt
+Group14.routeType = 2
+Group14.busControlSystemNr = 1
+
+Group16.groupID = v
+Group16.speed = 7, 10
+Group16.waitTime = 10, 30
+Group16.nrofHosts = 10
+Group16.nrofInterfaces = 0
+Group16.movementModel = BusMovement
+Group16.routeFile = data/Manchester/Bus_50.wkt
+Group16.routeType = 2
+Group16.busControlSystemNr = 1
+
+Group18.groupID = w
+Group18.speed = 7, 10
+Group18.waitTime = 10, 30
+Group18.nrofHosts = 10
+Group18.nrofInterfaces = 0
+Group18.movementModel = BusMovement
+Group18.routeFile = data/Manchester/Bus_168.wkt
+Group18.routeType = 2
+Group18.busControlSystemNr = 1
+
+Group20.groupID = x
+Group20.speed = 7, 10
+Group20.waitTime = 10, 30
+Group20.nrofHosts = 10
+Group20.nrofInterfaces = 0
+Group20.movementModel = BusMovement
+Group20.routeFile = data/Manchester/Bus_SalfordUni.wkt
+Group20.routeType = 2
+Group20.busControlSystemNr = 1
+
+
+
+## Message creation parameters 
+# How many event generators
+Events.nrof = 0
+# Class of the first event generator
+# Events1.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 580 to 620 seconds ~ 6 texts per hour)
+# 0.3 - 2000 nodes, 28 days, 144 messages each a day 
+# Events1.interval = 3,4
+# Message sizes (500kB - 1MB)
+# Events1.size = 500k,1M
+# Message size SMS
+# Events1.size = 1k
+# range of message source/destination addresses
+# Events1.hosts = 0,1999
+# Message ID prefix
+# Events1.prefix = M
+
+
+# seed for movement models' pseudo random number generator (default = 0)
+MovementModel.rngSeed = [2; 8372; 98092; 18293; 777]
+
+
+## Reports - all report names have to be valid report classes
+
+# how many reports to load
+Report.nrofReports = 14
+
+# Report classes to load
+Report.report1 = InterContactTimesReport
+Report.report2 = ContactTimesReport
+Report.report3 = UniqueEncountersReport
+Report.report4 = TotalEncountersReport
+Report.report5 = EncountersVSUniqueEncountersReport
+Report.report6 = ContactsDuringAnICTReport
+Report.report7 = MessageStatsReport
+Report.report8 = ContactsPerHourReport
+Report.report9 = AdjacencyGraphvizReport
+Report.report10 = ConnectivityDtnsim2Report
+Report.report11 = ConnectivityONEReport
+Report.report12 = DistanceDelayReport
+Report.report13 = MessageGraphvizReport
+Report.report14 = MessageLocationReport
+MessageLocationReport.granularity = 1
+MessageLocationReport.messages = 1
+
+## Default settings for some routers settings
+ProphetRouter.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+
+## GUI settings
+
+# GUI underlay image settings
+#GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 64, 20
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 4.75
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = -0.015
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 200
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$

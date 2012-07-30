@@ -1,0 +1,158 @@
+
+## Manchester Simulation file for the One Simulator
+# By Matthew Orlinski - 2011
+# GPLv3 license 
+
+Scenario.name = Manchester_scenario
+Scenario.simulateConnections = true
+Scenario.updateInterval = 1
+# 43k ~= 12h
+# 2408k ~= 28 days, 4 weeks
+# 2408k ~= 7 days
+Scenario.endTime = 86400
+
+Report.warmup = 1
+Group.msgTtl = 60
+
+Report.reportDir = [reports/Manchester/1; reports/Manchester/2; reports/Manchester/3; reports/Manchester/4; reports/Manchester/5]
+
+###################################
+### common settings for all groups
+# Define 6 different node groups
+Scenario.nrofHostGroups = 2
+Group.movementModel = CarMovement
+Group.router = SprayAndFocusRouter
+MaxPropRouterWithEstimation.timeScale = 30
+
+# "Bluetooth" interface for all nodes
+btInterface.type = SimpleBroadcastInterface
+# Transmit speed of 2 Mbps = 250kBps
+btInterface.transmitSpeed = 250k
+btInterface.transmitRange = 10
+btInterface.scanInterval = 120
+
+Group.bufferSize = 5M
+Group.waitTime = 0, 120
+# All nodes have the bluetooth interface
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+# Walking speeds
+Group.speed = 0.5, 1.5
+# Message TTL of 300 minutes (5 hours)
+Group.msgTtl = 60
+
+Group.nrofHosts = 40
+
+# group1 specific settings
+Group1.groupID = c
+# cars can drive only on roads
+Group1.okMaps = 1
+# 10-50 km/h
+Group1.speed = 2.7, 13.7
+
+# group2 specific settings
+Group2.groupID = cc
+# cars can drive only on roads
+Group2.okMaps = 1
+# 10-50 km/h
+Group2.speed = 2.7, 5.7
+
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 16000, 16000
+# How long time to move hosts in the world before real simulation
+MovementModel.warmup = 43000
+
+## Map based movement -movement model specific settings
+MapBasedMovement.nrofMapFiles = 1
+MapBasedMovement.performChecks = true
+MapBasedMovement.mapFile1 = data/roadCoordinate14.wkt
+
+
+####################################################
+# People movement
+
+
+
+## Message creation parameters 
+# How many event generators
+Events.nrof = 0
+# Class of the first event generator
+# Events1.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 580 to 620 seconds ~ 6 texts per hour)
+# 0.3 - 2000 nodes, 28 days, 144 messages each a day 
+# Events1.interval = 3,4
+# Message sizes (500kB - 1MB)
+# Events1.size = 500k,1M
+# Message size SMS
+# Events1.size = 1k
+# range of message source/destination addresses
+# Events1.hosts = 0,1999
+# Message ID prefix
+# Events1.prefix = M
+
+
+# seed for movement models' pseudo random number generator (default = 0)
+MovementModel.rngSeed = [2; 8372; 98092; 18293; 777]
+
+
+## Reports - all report names have to be valid report classes
+
+# how many reports to load
+Report.nrofReports = 16
+
+# Report classes to load
+Report.report1 = InterContactTimesReport
+Report.report2 = ContactTimesReport
+Report.report3 = UniqueEncountersReport
+Report.report4 = TotalEncountersReport
+Report.report5 = EncountersVSUniqueEncountersReport
+Report.report6 = ContactsDuringAnICTReport
+Report.report7 = MessageStatsReport
+Report.report8 = ContactsPerHourReport
+Report.report9 = AdjacencyGraphvizReport
+Report.report10 = ConnectivityDtnsim2Report
+Report.report11 = ConnectivityONEReport
+Report.report12 = DistanceDelayReport
+Report.report13 = MessageGraphvizReport
+Report.report14 = MessageLocationReport
+Report.report15 = MovementNs2Report
+Report.report16 = DTN2Reporter
+
+MessageLocationReport.granularity = 1
+MessageLocationReport.messages = 1
+
+## Default settings for some routers settings
+ProphetRouter.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+SprayAndFocusRouter.nrofCopies = 30
+SprayAndFocusRouter.transitivityTimerThreshold = 50
+SprayAndFocusRouter.SprayAndFocus.copies = 30
+SprayAndFocusRouter.SprayAndFocus.protoXchg = 30
+SprayAndFocusRouter.summary = 20
+
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+
+## GUI settings
+
+# GUI underlay image settings
+#GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 64, 20
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 4.75
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = -0.015
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 200
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$
