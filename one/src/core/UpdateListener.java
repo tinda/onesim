@@ -21,4 +21,5 @@ public interface UpdateListener {
 	 */
 	public void updated(List<DTNHost> hosts);
 	
+	
 }

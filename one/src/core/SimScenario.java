@@ -7,6 +7,9 @@ package core;
 import input.EventQueue;
 import input.EventQueueHandler;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -321,6 +324,8 @@ public class SimScenario implements Serializable {
 		return this.appListeners;
 	}
 	
+	
+	
 	/**
 	 * Creates hosts for the scenario
 	 */
@@ -407,7 +412,7 @@ public class SimScenario implements Serializable {
 			}
 		}
 	}
-
+	
 	/**
 	 * Returns the list of nodes for this scenario.
 	 * @return the list of nodes for this scenario.

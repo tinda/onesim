@@ -17,6 +17,8 @@ public class Path  {
 	private List<Coord> coords;
 	/** speeds in the path legs */
 	private List<Double> speeds;
+	/** speeds level in the path legs */
+	private List<Double> roadlevel;
 	private int nextWpIndex;
 	
 	/**
@@ -26,6 +28,7 @@ public class Path  {
 		this.nextWpIndex = 0;
 		this.coords = new ArrayList<Coord>();
 		this.speeds = new ArrayList<Double>(1);
+		this.roadlevel = new ArrayList<Double>(2);
 	}
 
 	/**
@@ -37,6 +40,7 @@ public class Path  {
 		this.nextWpIndex = path.nextWpIndex;
 		this.coords = new ArrayList<Coord>((ArrayList<Coord>)path.coords);
 		this.speeds = new ArrayList<Double>((ArrayList<Double>)path.speeds);
+		this.roadlevel = new ArrayList<Double>((ArrayList<Double>)path.roadlevel);
 	}
 	
 	/**
@@ -83,6 +87,23 @@ public class Path  {
 	public void addWaypoint(Coord wp, double speed) {
 		this.coords.add(wp);
 		this.speeds.add(speed);
+	}
+	
+	/**
+	 * Adds a new waypoint with a speed towards that waypoint
+	 * @param wp The waypoint
+	 * @param speed The speed towards that waypoint
+	 * @param roadlevel The speed towards that waypoint
+	 */
+	public void addWaypoint(Coord wp, double speed, double roadlevel) {
+		this.coords.add(wp);
+		this.speeds.add(speed);
+		this.roadlevel.add(roadlevel);
+	}
+	
+	public double getNextWaydistance() {
+		assert hasNext() : "Path didn't have " + (nextWpIndex+1) + ". waypoint";
+		return coords.get(nextWpIndex).distance(coords.get(nextWpIndex+1));
 	}
 	
 	/**

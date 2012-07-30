@@ -189,6 +189,7 @@ public class World {
 		for (UpdateListener ul : this.updateListeners) {
 			ul.updated(this.hosts);
 		}
+
 	}
 
 	/**
