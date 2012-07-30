@@ -332,7 +332,7 @@ public class IG_FerryRouter extends ActiveRouter {
 			return 0.0;
 	}
 
-	// def
+	// check for def
 	protected double def(DTNHost host) {
 		double le, t1 = 0;
 
