@@ -100,10 +100,20 @@ public class Path  {
 		this.speeds.add(speed);
 		this.roadlevel.add(roadlevel);
 	}
-	
+	/**
+	 * Returns the next waypoint distance on this path
+	 * @return the next waypoint distance
+	 */
 	public double getNextWaydistance() {
 		assert hasNext() : "Path didn't have " + (nextWpIndex+1) + ". waypoint";
 		return coords.get(nextWpIndex).distance(coords.get(nextWpIndex+1));
+	}
+	/**
+	 * Returns the next waypoint list on this path
+	 * @return the next waypoint list
+	 */
+	public List<Coord> getNextWayList() {
+		return coords;
 	}
 	
 	/**

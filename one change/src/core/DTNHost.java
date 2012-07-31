@@ -285,6 +285,15 @@ public class DTNHost implements Comparable<DTNHost> {
 	public Collection<Message> getMessageCollection() {
 		return this.router.getMessageCollection();
 	}
+	
+	/**
+	 * Returns the messages in a collection.
+	 * 
+	 * @return Messages in a collection
+	 */
+	public MessageRouter getMessageCollections() {
+		return this.router;
+	}
 
 	/**
 	 * Returns the number of messages this node is carrying.
@@ -669,6 +678,23 @@ public class DTNHost implements Comparable<DTNHost> {
 	 */
 	public int compareTo(DTNHost h) {
 		return this.getAddress() - h.getAddress();
+	}
+	/**
+	 * Returns host's destination.
+	 * 
+	 * @return The host destination.
+	 */
+	public Coord getDest() {
+		return destination;
+	}
+	
+	/**
+	 * Returns host's speed.
+	 * 
+	 * @return The host speed.
+	 */
+	public double getSpeed() {
+		return speed;
 	}
 
 }

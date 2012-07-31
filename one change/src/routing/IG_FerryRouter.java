@@ -97,8 +97,6 @@ public class IG_FerryRouter extends ActiveRouter {
 		 */
 		DTNHost thisHost = getHost();
 		DTNHost peer = con.getOtherNode(thisHost);
-		
-
 
 		// do this when con is up and goes down (might have been up for awhile)
 		if (recentEncounters.containsKey(peer)) {
@@ -118,10 +116,8 @@ public class IG_FerryRouter extends ActiveRouter {
 		 * connection access to the peers we recently encountered; so we
 		 * duplicate the recentEncounters Map and attach it to a message.
 		 */
-		int msgSize = recentEncounters.size() * 64
-				+ getMessageCollection().size() * 8;
-		Message newMsg = new Message(thisHost, peer, SUMMARY_XCHG_IDPREFIX
-				+ protocolMsgIdx++, msgSize);
+		int msgSize = recentEncounters.size() * 64 + getMessageCollection().size() * 8;
+		Message newMsg = new Message(thisHost, peer, SUMMARY_XCHG_IDPREFIX + protocolMsgIdx++, msgSize);
 		newMsg.addProperty(SUMMARY_XCHG_PROP, /*
 											 * new HashMap<DTNHost,
 											 * EncounterInfo>(
@@ -147,13 +143,10 @@ public class IG_FerryRouter extends ActiveRouter {
 		 * Here we update our last encounter times based on the information sent
 		 * from our peer.
 		 */
-		Map<DTNHost, EncounterInfo> peerEncounters = (Map<DTNHost, EncounterInfo>) m
-				.getProperty(SUMMARY_XCHG_PROP);
+		Map<DTNHost, EncounterInfo> peerEncounters = (Map<DTNHost, EncounterInfo>) m.getProperty(SUMMARY_XCHG_PROP);
 		if (isDeliveredMessage(m) && peerEncounters != null) {
-			double distTo = getHost().getLocation()
-					.distance(from.getLocation());
-			double speed = from.getPath() == null ? 0 : from.getPath()
-					.getSpeed();
+			double distTo = getHost().getLocation().distance(from.getLocation());
+			double speed = from.getPath() == null ? 0 : from.getPath().getSpeed();
 
 			if (speed == 0.0)
 				return m;
@@ -166,8 +159,7 @@ public class IG_FerryRouter extends ActiveRouter {
 			 */
 			neighborEncounters.put(from, peerEncounters);
 
-			for (Map.Entry<DTNHost, EncounterInfo> entry : peerEncounters
-					.entrySet()) {
+			for (Map.Entry<DTNHost, EncounterInfo> entry : peerEncounters.entrySet()) {
 				DTNHost h = entry.getKey();
 				if (h == getHost())
 					continue;
@@ -186,16 +178,13 @@ public class IG_FerryRouter extends ActiveRouter {
 				 * different from the paper.
 				 */
 				if (!recentEncounters.containsKey(h)) {
-					info = new EncounterInfo(peerEncounter.getLastSeenTime()
-							- timediff);
+					info = new EncounterInfo(peerEncounter.getLastSeenTime() - timediff);
 					recentEncounters.put(h, info);
 					continue;
 				}
 
-				if (info.getLastSeenTime() + timediff < peerEncounter
-						.getLastSeenTime()) {
-					recentEncounters.get(h).updateEncounterTime(
-							peerEncounter.getLastSeenTime() - timediff);
+				if (info.getLastSeenTime() + timediff < peerEncounter.getLastSeenTime()) {
+					recentEncounters.get(h).updateEncounterTime(peerEncounter.getLastSeenTime() - timediff);
 				}
 			}
 			return m;
@@ -205,8 +194,44 @@ public class IG_FerryRouter extends ActiveRouter {
 
 		Integer nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
 
-		if (nrofCopies > 0 && neighborEncounters.containsKey(from)) {
-			
+		for (Map.Entry<DTNHost, EncounterInfo> entry : peerEncounters.entrySet()) {
+			DTNHost h = entry.getKey();
+			if (h == getHost())
+				continue;
+
+			EncounterInfo peerEncounter = entry.getValue();
+			EncounterInfo info = recentEncounters.get(h);
+
+			double defofFrom = def(m, from);
+			double defofNexthop = def(m, h);
+			double e = defofFrom / defofNexthop;
+
+			if (nrofCopies > 0 && h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) != null) {
+				TokenReCal(id, from);
+			} else if (h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) == null) {
+				if (from.toString().contains("b")) {
+					if (e < 1 && h.toString().contains("b")) {
+						m.updateProperty(MSG_COUNT_PROP, 1);
+						return m;
+					} else if (e > 1 && h.toString().contains("b")) {
+						nrofCopies = nrofCopies - 1;
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					} else if (e < 1 && (h.toString().contains("nb") && h.toString().contains("c"))) {
+						m.updateProperty(MSG_COUNT_PROP, 0);
+						return m;
+					} else if (e > 1 && (h.toString().contains("nb") && h.toString().contains("c"))) {
+						nrofCopies = nrofCopies - 1;
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					} else {
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					}
+				} else if (from.toString().contains("nb")) {
+
+				}
+			}
 		}
 
 		nrofCopies = (int) Math.ceil(nrofCopies / 2.0);
@@ -266,8 +291,7 @@ public class IG_FerryRouter extends ActiveRouter {
 				continue;
 
 			Integer nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
-			assert nrofCopies != null : "SnF message " + m + " didn't have "
-					+ "nrof copies property!";
+			assert nrofCopies != null : "SnF message " + m + " didn't have " + "nrof copies property!";
 			if (nrofCopies > 1) {
 				spraylist.add(m);
 			} else {
@@ -288,14 +312,11 @@ public class IG_FerryRouter extends ActiveRouter {
 
 				for (Connection c : getConnections()) {
 					DTNHost peer = c.getOtherNode(getHost());
-					Map<DTNHost, EncounterInfo> peerEncounters = neighborEncounters
-							.get(peer);
+					Map<DTNHost, EncounterInfo> peerEncounters = neighborEncounters.get(peer);
 					double peerLastSeen = 0.0;
 
-					if (peerEncounters != null
-							&& peerEncounters.containsKey(dest))
-						peerLastSeen = neighborEncounters.get(peer).get(dest)
-								.getLastSeenTime();
+					if (peerEncounters != null && peerEncounters.containsKey(dest))
+						peerLastSeen = neighborEncounters.get(peer).get(dest).getLastSeenTime();
 
 					/*
 					 * We need to pick only one peer to send the copy on to; so
@@ -308,9 +329,7 @@ public class IG_FerryRouter extends ActiveRouter {
 					}
 
 				}
-				if (toSend != null
-						&& maxPeerLastSeen > thisLastSeen
-								+ transitivityTimerThreshold) {
+				if (toSend != null && maxPeerLastSeen > thisLastSeen + transitivityTimerThreshold) {
 					focuslist.add(new Tuple<Message, Connection>(m, toSend));
 				}
 			}
@@ -332,38 +351,40 @@ public class IG_FerryRouter extends ActiveRouter {
 			return 0.0;
 	}
 
-	// check for def
-	protected double def(DTNHost host) {
+	/**
+	 * def
+	 * 
+	 * @param m
+	 *            , message
+	 * @param host
+	 *            , the host
+	 * @return def
+	 */
+	protected double def(Message m, DTNHost host) {
 		double le, t1 = 0;
 
-		for (Message m : getMessageCollection()) {
-
-			if (host.getComBus().equals("c")) {
-				if (host.getPath().getNextWaypoint()
-						.equals((m.getTo().getLocation()))) {
-					le = host.getLocation().distance(m.getTo().getLocation());
-					t1 = (le / host.getPath().getSpeed());
-					return t1;
-				} else {
-					le = host.getPath().getNextWaypoint()
-							.distance(m.getTo().getLocation());
-					t1 = (le / host.getPath().getSpeed());
-					return t1;
-				}
+		if (host.toString().contains("b")) {// bus
+			if (host.getPath().getNextWayList().contains((m.getTo().getLocation()))) {
+				le = host.getLocation().distance(m.getTo().getLocation());
+				t1 = (le / host.getSpeed());
+				return t1;
 			} else {
-				if (host.getPath().getNextWaypoint()
-						.equals((m.getTo().getLocation()))) {
-					le = host.getLocation().distance(m.getTo().getLocation());
-					t1 = (le / host.getPath().getSpeed());
-					return t1;
-				}
+				le = host.getLocation().distance(m.getTo().getLocation());
+				t1 = (le / host.getSpeed());
+				return t1;
 			}
-
+		} else {// normal car
+			if (host.getPath().getNextWaypoint().equals((m.getTo().getLocation()))) {
+				le = host.getLocation().distance(m.getTo().getLocation());
+				t1 = (le / host.getSpeed());
+				return t1;
+			}
 		}
 		return t1;
 	}
-	//IGF token
-	protected void IGFTo(String id, DTNHost from) {
+
+	// IGF token
+	protected void TokenReCal(String id, DTNHost from) {
 		Message m = super.messageTransferred(id, from);
 		double tm, tn, to1 = 0, to2;
 		DTNHost dest = m.getTo();
@@ -374,15 +395,15 @@ public class IG_FerryRouter extends ActiveRouter {
 		m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 
 		for (Connection c : getConnections()) {
-			tm = def(from);// my node def
-			tn = def(c.getOtherNode(from));// nexthop def
-			Map<DTNHost, EncounterInfo> peerEncounters = neighborEncounters
-					.get(from);
-			if (peerEncounters != null && peerEncounters.containsKey(dest))
+			tm = def(m, from);// my node def
+			tn = def(m, c.getOtherNode(from));// nexthop def
+			Map<DTNHost, EncounterInfo> peerEncounters = neighborEncounters.get(from);
+			if (peerEncounters != null && peerEncounters.containsKey(dest)) {
 				to1 = nrofCopies;
-			to2 = nrofCopies;
-			to1 = (to1 + to2) * tm / (tm + tn); // 依照def比例重新分配
-			to2 = (to1 + to2) * tn / (tm + tn);
+				to2 = nrofCopies;
+				to1 = (to1 + to2) * tm / (tm + tn); // 依照def比例重新分配
+				to2 = (to1 + to2) * tn / (tm + tn);
+			}
 		}
 
 	}

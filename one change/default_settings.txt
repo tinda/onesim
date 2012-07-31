@@ -50,12 +50,16 @@ Group1.okMaps = 1
 # 10-50 km/h
 Group1.speed = 2.7, 13.7
 
+#Group1.router = SprayAndFocusRouter
+
 # group2 specific settings
 Group2.groupID = cc
 # cars can drive only on roads
 Group2.okMaps = 1
 # 10-50 km/h
 Group2.speed = 2.7, 5.7
+
+#Group2.router = SprayAndFocusRouter
 
 # World's size for Movement Models without implicit size (width, height; meters)
 MovementModel.worldSize = 16000, 16000
