@@ -192,37 +192,39 @@ public class IG_FerryRouter extends ActiveRouter {
 
 		// Normal message beyond here
 
-		Integer nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
+		Integer from_nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
 
 		for (Map.Entry<DTNHost, EncounterInfo> entry : peerEncounters.entrySet()) {
+
 			DTNHost h = entry.getKey();
 			if (h == getHost())
 				continue;
 
-			double defofFrom = def(m, from);
-			double defofNexthop = def(m, h);
-			double e = defofFrom / defofNexthop;
+			Integer h_nrofCopies = (Integer) h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP);
+			double def_From = def(m, from);
+			double def_Nexthop = def(h.getMessageCollections().getMessage(id), h);
+			double e = def_From / def_Nexthop;
 
-			if (nrofCopies > 0 && h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) != null) {
-				TokenReCal(id, from);
-			} else if (h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) == null) {
+			if (from_nrofCopies > 0 && h_nrofCopies != null) {
+				TokenReCal(id, from, h);
+			} else if ((h_nrofCopies == null) || (h_nrofCopies.intValue() == 0)) {
 				if ((from.toString().contains("b")) && (from.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
 					if (e < 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
 						m.updateProperty(MSG_COUNT_PROP, 1);
 						return m;
 					} else if (e > 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
-						nrofCopies = nrofCopies - 1;
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						from_nrofCopies = from_nrofCopies - 1;
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					} else if (e < 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
 						m.updateProperty(MSG_COUNT_PROP, 0);
 						return m;
 					} else if (e > 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
-						nrofCopies = nrofCopies - 1;
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						from_nrofCopies = from_nrofCopies - 1;
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					} else {
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					}
 				} else if (from.toString().contains("b") && (!from.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
@@ -230,13 +232,13 @@ public class IG_FerryRouter extends ActiveRouter {
 						m.updateProperty(MSG_COUNT_PROP, 1);
 						return m;
 					} else if (e > 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					} else if (e < 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					} else {
-						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						m.updateProperty(MSG_COUNT_PROP, from_nrofCopies);
 						return m;
 					}
 
@@ -362,7 +364,7 @@ public class IG_FerryRouter extends ActiveRouter {
 	}
 
 	/**
-	 * cal def
+	 * calaulate def
 	 * 
 	 * @param m
 	 * @param host
@@ -392,32 +394,29 @@ public class IG_FerryRouter extends ActiveRouter {
 	}
 
 	/**
-	 * IGF token
+	 * IGF token recalaulate
 	 * 
 	 * @param id
 	 * @param from
+	 * @param encounter
 	 */
-	protected void TokenReCal(String id, DTNHost from) {
+	protected void TokenReCal(String id, DTNHost from, DTNHost encounter) {
 		Message m = super.messageTransferred(id, from);
-		double tm, tn, to1 = 0, to2;
+		Integer from_nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
+		Integer encounter_nrofCopies = (Integer) encounter.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP);
+		double tm, tn, from_to = 0, encounter_to;
 		DTNHost dest = m.getTo();
-		Integer nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
 
-		nrofCopies = (int) Math.ceil(nrofCopies / 2.0);
+		tm = def(m, from);// my node def
+		tn = def(m, encounter);// nexthop def
 
-		for (Connection c : getConnections()) {
-			tm = def(m, from);// my node def
-			tn = def(m, c.getOtherNode(from));// nexthop def
-			Map<DTNHost, EncounterInfo> peerEncounters = neighborEncounters.get(from);
-			if (peerEncounters != null && peerEncounters.containsKey(dest)) {
-				to1 = nrofCopies;
-				to2 = nrofCopies;
-				to1 = (to1 + to2) * tm / (tm + tn); // 依照def比例重新分配
-				to2 = (to1 + to2) * tn / (tm + tn);
-			}
-			m.updateProperty(MSG_COUNT_PROP, nrofCopies);
-		}
+		from_to = from_nrofCopies;
+		encounter_to = encounter_nrofCopies;
+		from_to = (from_to + encounter_to) * tm / (tm + tn); // 依照def比例重新分配
+		encounter_to = (from_to + encounter_to) * tn / (tm + tn);
 
+		m.updateProperty(MSG_COUNT_PROP, from_to);
+		m.updateProperty(MSG_COUNT_PROP, encounter_to);
 	}
 
 	/**
