@@ -199,9 +199,6 @@ public class IG_FerryRouter extends ActiveRouter {
 			if (h == getHost())
 				continue;
 
-			EncounterInfo peerEncounter = entry.getValue();
-			EncounterInfo info = recentEncounters.get(h);
-
 			double defofFrom = def(m, from);
 			double defofNexthop = def(m, h);
 			double e = defofFrom / defofNexthop;
@@ -209,18 +206,18 @@ public class IG_FerryRouter extends ActiveRouter {
 			if (nrofCopies > 0 && h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) != null) {
 				TokenReCal(id, from);
 			} else if (h.getMessageCollections().getMessage(id).getProperty(MSG_COUNT_PROP) == null) {
-				if (from.toString().contains("b")) {
-					if (e < 1 && h.toString().contains("b")) {
+				if ((from.toString().contains("b")) && (from.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
+					if (e < 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
 						m.updateProperty(MSG_COUNT_PROP, 1);
 						return m;
-					} else if (e > 1 && h.toString().contains("b")) {
+					} else if (e > 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
 						nrofCopies = nrofCopies - 1;
 						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 						return m;
-					} else if (e < 1 && (h.toString().contains("nb") && h.toString().contains("c"))) {
+					} else if (e < 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
 						m.updateProperty(MSG_COUNT_PROP, 0);
 						return m;
-					} else if (e > 1 && (h.toString().contains("nb") && h.toString().contains("c"))) {
+					} else if (e > 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
 						nrofCopies = nrofCopies - 1;
 						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 						return m;
@@ -228,16 +225,29 @@ public class IG_FerryRouter extends ActiveRouter {
 						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 						return m;
 					}
-				} else if (from.toString().contains("nb")) {
+				} else if (from.toString().contains("b") && (!from.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
+					if (e < 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
+						m.updateProperty(MSG_COUNT_PROP, 1);
+						return m;
+					} else if (e > 1 && h.toString().contains("b") && (h.getPath().getNextWayList().contains(m.getTo().getLocation()))) {
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					} else if (e < 1 && (h.toString().contains("b") || h.toString().contains("c"))) {
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					} else {
+						m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+						return m;
+					}
 
 				}
 			}
 		}
-
-		nrofCopies = (int) Math.ceil(nrofCopies / 2.0);
-
-		m.updateProperty(MSG_COUNT_PROP, nrofCopies);
-
+		/*
+		 * nrofCopies = (int) Math.ceil(nrofCopies / 2.0);
+		 * 
+		 * m.updateProperty(MSG_COUNT_PROP, nrofCopies);
+		 */
 		return m;
 	}
 
@@ -352,12 +362,10 @@ public class IG_FerryRouter extends ActiveRouter {
 	}
 
 	/**
-	 * def
+	 * cal def
 	 * 
 	 * @param m
-	 *            , message
 	 * @param host
-	 *            , the host
 	 * @return def
 	 */
 	protected double def(Message m, DTNHost host) {
@@ -383,7 +391,12 @@ public class IG_FerryRouter extends ActiveRouter {
 		return t1;
 	}
 
-	// IGF token
+	/**
+	 * IGF token
+	 * 
+	 * @param id
+	 * @param from
+	 */
 	protected void TokenReCal(String id, DTNHost from) {
 		Message m = super.messageTransferred(id, from);
 		double tm, tn, to1 = 0, to2;
@@ -391,8 +404,6 @@ public class IG_FerryRouter extends ActiveRouter {
 		Integer nrofCopies = (Integer) m.getProperty(MSG_COUNT_PROP);
 
 		nrofCopies = (int) Math.ceil(nrofCopies / 2.0);
-
-		m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 
 		for (Connection c : getConnections()) {
 			tm = def(m, from);// my node def
@@ -404,6 +415,7 @@ public class IG_FerryRouter extends ActiveRouter {
 				to1 = (to1 + to2) * tm / (tm + tn); // 依照def比例重新分配
 				to2 = (to1 + to2) * tn / (tm + tn);
 			}
+			m.updateProperty(MSG_COUNT_PROP, nrofCopies);
 		}
 
 	}
